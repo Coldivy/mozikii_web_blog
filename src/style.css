@@ -1,6 +1,6 @@
 /* 导入更纱黑体字体切片 */
-@import url("./public/fonts/sarasa-regular/result.css");
-@import url("./public/fonts/sarasa-bold/result.css");
+@import url("../public/fonts/sarasa-regular/result");
+@import url("../public/fonts/sarasa-bold/result");
 
 /* Space Mono 字体定义 */
 @font-face {
@@ -63,7 +63,7 @@ main {
   max-width: 720px;
   margin: 0 auto;
   padding: 0 1.5rem;
-  padding-bottom: 15vh;
+  padding-bottom: 10vh;
   padding-top: 5vh;
   display: flex;
   flex-direction: column;
@@ -256,4 +256,30 @@ ul.blogroll {
 
 .platform-icon:active {
   color: #e06687;
+}
+
+.live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-color: #00ff00; /* 亮绿色 */
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+  box-shadow: 0 0 7px #00ff00;
+  animation: breathe 1s infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
