@@ -1,0 +1,259 @@
+/* 导入更纱黑体字体切片 */
+@import url("./public/fonts/sarasa-regular/result.css");
+@import url("./public/fonts/sarasa-bold/result.css");
+
+/* Space Mono 字体定义 */
+@font-face {
+  font-family: "Space Mono";
+  src: url("assets/fonts/SpaceMono-Regular.ttf") format("truetype");
+  font-weight: 400; /* 常规 */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  src: url("assets/fonts/SpaceMono-Bold.ttf") format("truetype");
+  font-weight: 700; /* 粗体 */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  src: url("assets/fonts/SpaceMono-Italic.ttf") format("truetype");
+  font-weight: 400; /* 斜体 */
+  font-style: italic;
+}
+
+/* 重置边距 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  /* 字体设置 */
+  font-family:
+    "Space Mono", "Sarasa Term Slab SC", "MiSans", "HarmonyOS Sans SC",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+}
+
+/* 背景：底噪 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.15;
+  pointer-events: none; /* 不要阻挡点击 */
+  z-index: -1;
+}
+
+main {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  padding-bottom: 15vh;
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  flex: 1;
+}
+
+/* 标题 */
+h1 {
+  font-weight: 400;
+  font-size: 40px;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 30px;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 20px;
+}
+
+/* 正文 */
+p {
+  margin-top: 1.2rem;
+  color: #333;
+  font-weight: 400;
+}
+
+b {
+  font-weight: 700;
+}
+
+/* 动画 */
+h2::before,
+h3::before {
+  content: "_";
+  color: #000;
+}
+
+/* --- 1. 父级标题的动画触发 --- */
+/* 逻辑：父 section 处于 hover 状态，但 排除掉（not） 那些 拥有已悬停子 section（has） 的情况 */
+section:hover:not(:has(section:hover)) > h2::before {
+  content: "_";
+  color: #00aeec;
+  animation: blink 1s step-end infinite;
+}
+
+/* --- 2. 子级标题的动画触发 --- */
+/* 当子 section 被悬停时，激活它自己的 H3 动画 */
+section section:hover > h3::before {
+  content: "_";
+  color: #fb7299; /* 换个颜色区分层级 */
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* --- 3. 辅助：让父级 H2 在子级激活时变淡（暗示层级关系） --- */
+section > h2 {
+  opacity: 1;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+section:has(section:hover) > h2 {
+  opacity: 0.3;
+}
+
+/* 超链接设置 */
+.outer-link {
+  display: inline-flex; /* 这里加inline可以防止行内插入链接换行 */
+  align-items: center;
+  gap: 10px;
+  color: #00aeec;
+  text-decoration: none;
+  transition: color 0.15s ease; /* 颜色变化的过渡动画 */
+}
+
+.outer-link:hover {
+  color: #fb7299;
+  text-decoration: underline;
+}
+
+.outer-link:active {
+  color: #e06687;
+}
+
+.link-icon {
+  fill: currentColor;
+  fill-rule: evenodd;
+  width: 0.95em;
+  height: 0.95em;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+ul.blogroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+#music-list-container {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #eaeaea;
+}
+
+.track-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #eaeaea;
+  transition: background-color 0.2s;
+}
+
+.track-item:hover {
+  background-color: #f9f9f9;
+  cursor: default;
+}
+
+.track-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.track-year {
+  font-family: "Courier New", monospace;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.track-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.track-title {
+  font-size: 1rem;
+  color: #333;
+}
+
+.track-genre {
+  font-size: 0.8rem;
+  color: #888;
+  font-weight: 300;
+}
+
+/* 右侧图标区 */
+.track-right {
+  display: flex;
+  gap: 12px;
+  padding-right: 0.45em;
+}
+
+.platform-icon {
+  color: #00aeec;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.platform-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: currentColor;
+}
+
+.platform-icon:hover {
+  color: #fb7299;
+  transform: translateY(-2px);
+}
+
+.platform-icon:active {
+  color: #e06687;
+}
